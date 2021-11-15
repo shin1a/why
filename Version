@@ -1,0 +1,4 @@
+# Why/Jessie/Krakatoa version
+VERSION=2.33
+# Caduceus version (no more maintained)
+CVERSION=1.29

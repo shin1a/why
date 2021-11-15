@@ -1,0 +1,534 @@
+   0  $accept : %entry% $end
+
+   1  file : list0_pseudo list1_stmt EOF
+   2       | EOF
+
+   3  list0_pseudo :
+   4               | list0_pseudo pseudo
+
+   5  pseudo : IDENT EQU address
+   6         | IDENT EQU INTEGER COLON INTEGER
+   7         | ORIG address
+   8         | IDENT ORIG address
+   9         | VERBATIM
+
+  10  list1_stmt : stmt
+  11             | list1_stmt stmt
+
+  12  stmt : opt_label stmt_kind
+
+  13  stmt_kind : INVARIANT
+  14            | ASSERT
+  15            | INSTR operand
+
+  16  opt_label : LABEL
+  17            |
+
+  18  operand : address_opt index_opt field_opt
+
+  19  address_opt : address
+  20              |
+
+  21  address : STAR
+  22          | IDENT
+  23          | INTEGER
+  24          | address PLUS address
+  25          | address MINUS address
+  26          | MINUS address
+
+  27  index_opt : COMMA INTEGER
+  28            |
+
+  29  field_opt : LPAR INTEGER COLON INTEGER RPAR
+  30            | LPAR IDENT RPAR
+  31            |
+
+  32  %entry% : '\001' file
+
+state 0
+	$accept : . %entry% $end  (0)
+
+	'\001'  shift 1
+	.  error
+
+	%entry%  goto 2
+
+
+state 1
+	%entry% : '\001' . file  (32)
+	list0_pseudo : .  (3)
+
+	EOF  shift 3
+	IDENT  reduce 3
+	LABEL  reduce 3
+	VERBATIM  reduce 3
+	INVARIANT  reduce 3
+	ASSERT  reduce 3
+	INSTR  reduce 3
+	ORIG  reduce 3
+
+	file  goto 4
+	list0_pseudo  goto 5
+
+
+state 2
+	$accept : %entry% . $end  (0)
+
+	$end  accept
+
+
+state 3
+	file : EOF .  (2)
+
+	.  reduce 2
+
+
+state 4
+	%entry% : '\001' file .  (32)
+
+	.  reduce 32
+
+
+state 5
+	file : list0_pseudo . list1_stmt EOF  (1)
+	list0_pseudo : list0_pseudo . pseudo  (4)
+	opt_label : .  (17)
+
+	IDENT  shift 6
+	LABEL  shift 7
+	VERBATIM  shift 8
+	ORIG  shift 9
+	INVARIANT  reduce 17
+	ASSERT  reduce 17
+	INSTR  reduce 17
+
+	list1_stmt  goto 10
+	pseudo  goto 11
+	stmt  goto 12
+	opt_label  goto 13
+
+
+state 6
+	pseudo : IDENT . EQU address  (5)
+	pseudo : IDENT . EQU INTEGER COLON INTEGER  (6)
+	pseudo : IDENT . ORIG address  (8)
+
+	EQU  shift 14
+	ORIG  shift 15
+	.  error
+
+
+state 7
+	opt_label : LABEL .  (16)
+
+	.  reduce 16
+
+
+state 8
+	pseudo : VERBATIM .  (9)
+
+	.  reduce 9
+
+
+state 9
+	pseudo : ORIG . address  (7)
+
+	IDENT  shift 16
+	INTEGER  shift 17
+	STAR  shift 18
+	MINUS  shift 19
+	.  error
+
+	address  goto 20
+
+
+state 10
+	file : list0_pseudo list1_stmt . EOF  (1)
+	list1_stmt : list1_stmt . stmt  (11)
+	opt_label : .  (17)
+
+	LABEL  shift 7
+	EOF  shift 21
+	INVARIANT  reduce 17
+	ASSERT  reduce 17
+	INSTR  reduce 17
+
+	stmt  goto 22
+	opt_label  goto 13
+
+
+state 11
+	list0_pseudo : list0_pseudo pseudo .  (4)
+
+	.  reduce 4
+
+
+state 12
+	list1_stmt : stmt .  (10)
+
+	.  reduce 10
+
+
+state 13
+	stmt : opt_label . stmt_kind  (12)
+
+	INVARIANT  shift 23
+	ASSERT  shift 24
+	INSTR  shift 25
+	.  error
+
+	stmt_kind  goto 26
+
+
+state 14
+	pseudo : IDENT EQU . address  (5)
+	pseudo : IDENT EQU . INTEGER COLON INTEGER  (6)
+
+	IDENT  shift 16
+	INTEGER  shift 27
+	STAR  shift 18
+	MINUS  shift 19
+	.  error
+
+	address  goto 28
+
+
+state 15
+	pseudo : IDENT ORIG . address  (8)
+
+	IDENT  shift 16
+	INTEGER  shift 17
+	STAR  shift 18
+	MINUS  shift 19
+	.  error
+
+	address  goto 29
+
+
+state 16
+	address : IDENT .  (22)
+
+	.  reduce 22
+
+
+state 17
+	address : INTEGER .  (23)
+
+	.  reduce 23
+
+
+state 18
+	address : STAR .  (21)
+
+	.  reduce 21
+
+
+state 19
+	address : MINUS . address  (26)
+
+	IDENT  shift 16
+	INTEGER  shift 17
+	STAR  shift 18
+	MINUS  shift 19
+	.  error
+
+	address  goto 30
+
+
+state 20
+	pseudo : ORIG address .  (7)
+	address : address . PLUS address  (24)
+	address : address . MINUS address  (25)
+
+	PLUS  shift 31
+	MINUS  shift 32
+	IDENT  reduce 7
+	LABEL  reduce 7
+	VERBATIM  reduce 7
+	INVARIANT  reduce 7
+	ASSERT  reduce 7
+	INSTR  reduce 7
+	ORIG  reduce 7
+
+
+state 21
+	file : list0_pseudo list1_stmt EOF .  (1)
+
+	.  reduce 1
+
+
+state 22
+	list1_stmt : list1_stmt stmt .  (11)
+
+	.  reduce 11
+
+
+state 23
+	stmt_kind : INVARIANT .  (13)
+
+	.  reduce 13
+
+
+state 24
+	stmt_kind : ASSERT .  (14)
+
+	.  reduce 14
+
+
+state 25
+	stmt_kind : INSTR . operand  (15)
+	address_opt : .  (20)
+
+	IDENT  shift 16
+	INTEGER  shift 17
+	STAR  shift 18
+	MINUS  shift 19
+	LABEL  reduce 20
+	INVARIANT  reduce 20
+	ASSERT  reduce 20
+	INSTR  reduce 20
+	COMMA  reduce 20
+	LPAR  reduce 20
+	EOF  reduce 20
+
+	address  goto 33
+	operand  goto 34
+	address_opt  goto 35
+
+
+state 26
+	stmt : opt_label stmt_kind .  (12)
+
+	.  reduce 12
+
+
+state 27
+	pseudo : IDENT EQU INTEGER . COLON INTEGER  (6)
+	address : INTEGER .  (23)
+
+	COLON  shift 36
+	IDENT  reduce 23
+	LABEL  reduce 23
+	VERBATIM  reduce 23
+	INVARIANT  reduce 23
+	ASSERT  reduce 23
+	INSTR  reduce 23
+	PLUS  reduce 23
+	MINUS  reduce 23
+	ORIG  reduce 23
+
+
+state 28
+	pseudo : IDENT EQU address .  (5)
+	address : address . PLUS address  (24)
+	address : address . MINUS address  (25)
+
+	PLUS  shift 31
+	MINUS  shift 32
+	IDENT  reduce 5
+	LABEL  reduce 5
+	VERBATIM  reduce 5
+	INVARIANT  reduce 5
+	ASSERT  reduce 5
+	INSTR  reduce 5
+	ORIG  reduce 5
+
+
+state 29
+	pseudo : IDENT ORIG address .  (8)
+	address : address . PLUS address  (24)
+	address : address . MINUS address  (25)
+
+	PLUS  shift 31
+	MINUS  shift 32
+	IDENT  reduce 8
+	LABEL  reduce 8
+	VERBATIM  reduce 8
+	INVARIANT  reduce 8
+	ASSERT  reduce 8
+	INSTR  reduce 8
+	ORIG  reduce 8
+
+
+state 30
+	address : address . PLUS address  (24)
+	address : address . MINUS address  (25)
+	address : MINUS address .  (26)
+
+	.  reduce 26
+
+
+state 31
+	address : address PLUS . address  (24)
+
+	IDENT  shift 16
+	INTEGER  shift 17
+	STAR  shift 18
+	MINUS  shift 19
+	.  error
+
+	address  goto 37
+
+
+state 32
+	address : address MINUS . address  (25)
+
+	IDENT  shift 16
+	INTEGER  shift 17
+	STAR  shift 18
+	MINUS  shift 19
+	.  error
+
+	address  goto 38
+
+
+state 33
+	address_opt : address .  (19)
+	address : address . PLUS address  (24)
+	address : address . MINUS address  (25)
+
+	PLUS  shift 31
+	MINUS  shift 32
+	LABEL  reduce 19
+	INVARIANT  reduce 19
+	ASSERT  reduce 19
+	INSTR  reduce 19
+	COMMA  reduce 19
+	LPAR  reduce 19
+	EOF  reduce 19
+
+
+state 34
+	stmt_kind : INSTR operand .  (15)
+
+	.  reduce 15
+
+
+state 35
+	operand : address_opt . index_opt field_opt  (18)
+	index_opt : .  (28)
+
+	COMMA  shift 39
+	LABEL  reduce 28
+	INVARIANT  reduce 28
+	ASSERT  reduce 28
+	INSTR  reduce 28
+	LPAR  reduce 28
+	EOF  reduce 28
+
+	index_opt  goto 40
+
+
+state 36
+	pseudo : IDENT EQU INTEGER COLON . INTEGER  (6)
+
+	INTEGER  shift 41
+	.  error
+
+
+state 37
+	address : address . PLUS address  (24)
+	address : address PLUS address .  (24)
+	address : address . MINUS address  (25)
+
+	.  reduce 24
+
+
+state 38
+	address : address . PLUS address  (24)
+	address : address . MINUS address  (25)
+	address : address MINUS address .  (25)
+
+	.  reduce 25
+
+
+state 39
+	index_opt : COMMA . INTEGER  (27)
+
+	INTEGER  shift 42
+	.  error
+
+
+state 40
+	operand : address_opt index_opt . field_opt  (18)
+	field_opt : .  (31)
+
+	LPAR  shift 43
+	LABEL  reduce 31
+	INVARIANT  reduce 31
+	ASSERT  reduce 31
+	INSTR  reduce 31
+	EOF  reduce 31
+
+	field_opt  goto 44
+
+
+state 41
+	pseudo : IDENT EQU INTEGER COLON INTEGER .  (6)
+
+	.  reduce 6
+
+
+state 42
+	index_opt : COMMA INTEGER .  (27)
+
+	.  reduce 27
+
+
+state 43
+	field_opt : LPAR . INTEGER COLON INTEGER RPAR  (29)
+	field_opt : LPAR . IDENT RPAR  (30)
+
+	IDENT  shift 45
+	INTEGER  shift 46
+	.  error
+
+
+state 44
+	operand : address_opt index_opt field_opt .  (18)
+
+	.  reduce 18
+
+
+state 45
+	field_opt : LPAR IDENT . RPAR  (30)
+
+	RPAR  shift 47
+	.  error
+
+
+state 46
+	field_opt : LPAR INTEGER . COLON INTEGER RPAR  (29)
+
+	COLON  shift 48
+	.  error
+
+
+state 47
+	field_opt : LPAR IDENT RPAR .  (30)
+
+	.  reduce 30
+
+
+state 48
+	field_opt : LPAR INTEGER COLON . INTEGER RPAR  (29)
+
+	INTEGER  shift 49
+	.  error
+
+
+state 49
+	field_opt : LPAR INTEGER COLON INTEGER . RPAR  (29)
+
+	RPAR  shift 50
+	.  error
+
+
+state 50
+	field_opt : LPAR INTEGER COLON INTEGER RPAR .  (29)
+
+	.  reduce 29
+
+
+22 terminals, 14 nonterminals
+33 grammar rules, 51 states

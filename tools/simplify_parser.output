@@ -1,0 +1,1406 @@
+   0  $accept : %entry% $end
+
+   1  start : list0_decl EOF
+
+   2  list0_decl :
+   3             | list1_decl
+
+   4  list1_decl : decl
+   5             | decl list1_decl
+
+   6  decl : LPAR BG_PUSH predicate RPAR
+   7       | LPAR DEFPRED LPAR list1_ident RPAR RPAR
+   8       | LPAR DEFPRED LPAR list1_ident RPAR predicate RPAR
+   9       | predicate
+
+  10  list1_predicate : predicate
+  11                  | predicate list1_predicate
+
+  12  predicate : TRUE
+  13            | FALSE
+  14            | LPAR AND list1_predicate RPAR
+  15            | LPAR OR list1_predicate RPAR
+  16            | LPAR IMPLIES predicate predicate RPAR
+  17            | LPAR EXPLIES predicate predicate RPAR
+  18            | LPAR IFF predicate predicate RPAR
+  19            | LPAR NOT predicate RPAR
+  20            | LPAR EQ term term RPAR
+  21            | LPAR NEQ term term RPAR
+  22            | LPAR LT term term RPAR
+  23            | LPAR LE term term RPAR
+  24            | LPAR GT term term RPAR
+  25            | LPAR GE term term RPAR
+  26            | LPAR DISTINCT list1_term RPAR
+  27            | LPAR IDENT list1_term RPAR
+  28            | IDENT
+  29            | LPAR FORALL LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR
+  30            | LPAR FORALL LPAR list1_ident RPAR predicate RPAR
+  31            | LPAR EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR
+  32            | LPAR EXISTS LPAR list1_ident RPAR predicate RPAR
+  33            | LPAR predicate RPAR
+  34            | LPAR LBLPOS IDENT predicate RPAR
+  35            | LPAR LBLNEG IDENT predicate RPAR
+
+  36  pats : PATS
+  37       | NOPATS
+
+  38  list1_trigger : trigger
+  39                | trigger list1_trigger
+
+  40  trigger : LPAR MPAT list1_term RPAR
+  41          | term
+
+  42  term : LPAR term RPAR
+  43       | INTEGER
+  44       | IDENT
+  45       | LPAR IDENT list1_term RPAR
+  46       | AT_TRUE
+
+  47  list1_term : term
+  48             | term list1_term
+
+  49  list1_ident : IDENT
+  50              | IDENT list1_ident
+
+  51  %entry% : '\001' start
+
+state 0
+	$accept : . %entry% $end  (0)
+
+	'\001'  shift 1
+	.  error
+
+	%entry%  goto 2
+
+
+state 1
+	%entry% : '\001' . start  (51)
+	list0_decl : .  (2)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 6
+	EOF  reduce 2
+
+	start  goto 7
+	list0_decl  goto 8
+	list1_decl  goto 9
+	decl  goto 10
+	predicate  goto 11
+
+
+state 2
+	$accept : %entry% . $end  (0)
+
+	$end  accept
+
+
+state 3
+	predicate : IDENT .  (28)
+
+	.  reduce 28
+
+
+state 4
+	predicate : TRUE .  (12)
+
+	.  reduce 12
+
+
+state 5
+	predicate : FALSE .  (13)
+
+	.  reduce 13
+
+
+state 6
+	decl : LPAR . BG_PUSH predicate RPAR  (6)
+	decl : LPAR . DEFPRED LPAR list1_ident RPAR RPAR  (7)
+	decl : LPAR . DEFPRED LPAR list1_ident RPAR predicate RPAR  (8)
+	predicate : LPAR . AND list1_predicate RPAR  (14)
+	predicate : LPAR . OR list1_predicate RPAR  (15)
+	predicate : LPAR . IMPLIES predicate predicate RPAR  (16)
+	predicate : LPAR . EXPLIES predicate predicate RPAR  (17)
+	predicate : LPAR . IFF predicate predicate RPAR  (18)
+	predicate : LPAR . NOT predicate RPAR  (19)
+	predicate : LPAR . EQ term term RPAR  (20)
+	predicate : LPAR . NEQ term term RPAR  (21)
+	predicate : LPAR . LT term term RPAR  (22)
+	predicate : LPAR . LE term term RPAR  (23)
+	predicate : LPAR . GT term term RPAR  (24)
+	predicate : LPAR . GE term term RPAR  (25)
+	predicate : LPAR . DISTINCT list1_term RPAR  (26)
+	predicate : LPAR . IDENT list1_term RPAR  (27)
+	predicate : LPAR . FORALL LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR . FORALL LPAR list1_ident RPAR predicate RPAR  (30)
+	predicate : LPAR . EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR . EXISTS LPAR list1_ident RPAR predicate RPAR  (32)
+	predicate : LPAR . predicate RPAR  (33)
+	predicate : LPAR . LBLPOS IDENT predicate RPAR  (34)
+	predicate : LPAR . LBLNEG IDENT predicate RPAR  (35)
+
+	IDENT  shift 12
+	DEFPRED  shift 13
+	BG_PUSH  shift 14
+	TRUE  shift 4
+	FALSE  shift 5
+	AND  shift 15
+	IMPLIES  shift 16
+	EXPLIES  shift 17
+	IFF  shift 18
+	FORALL  shift 19
+	EXISTS  shift 20
+	OR  shift 21
+	NOT  shift 22
+	LBLPOS  shift 23
+	LBLNEG  shift 24
+	DISTINCT  shift 25
+	EQ  shift 26
+	NEQ  shift 27
+	LT  shift 28
+	LE  shift 29
+	GT  shift 30
+	GE  shift 31
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 33
+
+
+state 7
+	%entry% : '\001' start .  (51)
+
+	.  reduce 51
+
+
+state 8
+	start : list0_decl . EOF  (1)
+
+	EOF  shift 34
+	.  error
+
+
+state 9
+	list0_decl : list1_decl .  (3)
+
+	.  reduce 3
+
+
+state 10
+	list1_decl : decl .  (4)
+	list1_decl : decl . list1_decl  (5)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 6
+	EOF  reduce 4
+
+	list1_decl  goto 35
+	decl  goto 10
+	predicate  goto 11
+
+
+state 11
+	decl : predicate .  (9)
+
+	.  reduce 9
+
+
+state 12
+	predicate : LPAR IDENT . list1_term RPAR  (27)
+	predicate : IDENT .  (28)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	RPAR  reduce 28
+
+	term  goto 40
+	list1_term  goto 41
+
+
+state 13
+	decl : LPAR DEFPRED . LPAR list1_ident RPAR RPAR  (7)
+	decl : LPAR DEFPRED . LPAR list1_ident RPAR predicate RPAR  (8)
+
+	LPAR  shift 42
+	.  error
+
+
+state 14
+	decl : LPAR BG_PUSH . predicate RPAR  (6)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 43
+
+
+state 15
+	predicate : LPAR AND . list1_predicate RPAR  (14)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 44
+	list1_predicate  goto 45
+
+
+state 16
+	predicate : LPAR IMPLIES . predicate predicate RPAR  (16)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 46
+
+
+state 17
+	predicate : LPAR EXPLIES . predicate predicate RPAR  (17)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 47
+
+
+state 18
+	predicate : LPAR IFF . predicate predicate RPAR  (18)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 48
+
+
+state 19
+	predicate : LPAR FORALL . LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR FORALL . LPAR list1_ident RPAR predicate RPAR  (30)
+
+	LPAR  shift 49
+	.  error
+
+
+state 20
+	predicate : LPAR EXISTS . LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR EXISTS . LPAR list1_ident RPAR predicate RPAR  (32)
+
+	LPAR  shift 50
+	.  error
+
+
+state 21
+	predicate : LPAR OR . list1_predicate RPAR  (15)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 44
+	list1_predicate  goto 51
+
+
+state 22
+	predicate : LPAR NOT . predicate RPAR  (19)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 52
+
+
+state 23
+	predicate : LPAR LBLPOS . IDENT predicate RPAR  (34)
+
+	IDENT  shift 53
+	.  error
+
+
+state 24
+	predicate : LPAR LBLNEG . IDENT predicate RPAR  (35)
+
+	IDENT  shift 54
+	.  error
+
+
+state 25
+	predicate : LPAR DISTINCT . list1_term RPAR  (26)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 40
+	list1_term  goto 55
+
+
+state 26
+	predicate : LPAR EQ . term term RPAR  (20)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 56
+
+
+state 27
+	predicate : LPAR NEQ . term term RPAR  (21)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 57
+
+
+state 28
+	predicate : LPAR LT . term term RPAR  (22)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 58
+
+
+state 29
+	predicate : LPAR LE . term term RPAR  (23)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 59
+
+
+state 30
+	predicate : LPAR GT . term term RPAR  (24)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 60
+
+
+state 31
+	predicate : LPAR GE . term term RPAR  (25)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 61
+
+
+state 32
+	predicate : LPAR . AND list1_predicate RPAR  (14)
+	predicate : LPAR . OR list1_predicate RPAR  (15)
+	predicate : LPAR . IMPLIES predicate predicate RPAR  (16)
+	predicate : LPAR . EXPLIES predicate predicate RPAR  (17)
+	predicate : LPAR . IFF predicate predicate RPAR  (18)
+	predicate : LPAR . NOT predicate RPAR  (19)
+	predicate : LPAR . EQ term term RPAR  (20)
+	predicate : LPAR . NEQ term term RPAR  (21)
+	predicate : LPAR . LT term term RPAR  (22)
+	predicate : LPAR . LE term term RPAR  (23)
+	predicate : LPAR . GT term term RPAR  (24)
+	predicate : LPAR . GE term term RPAR  (25)
+	predicate : LPAR . DISTINCT list1_term RPAR  (26)
+	predicate : LPAR . IDENT list1_term RPAR  (27)
+	predicate : LPAR . FORALL LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR . FORALL LPAR list1_ident RPAR predicate RPAR  (30)
+	predicate : LPAR . EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR . EXISTS LPAR list1_ident RPAR predicate RPAR  (32)
+	predicate : LPAR . predicate RPAR  (33)
+	predicate : LPAR . LBLPOS IDENT predicate RPAR  (34)
+	predicate : LPAR . LBLNEG IDENT predicate RPAR  (35)
+
+	IDENT  shift 12
+	TRUE  shift 4
+	FALSE  shift 5
+	AND  shift 15
+	IMPLIES  shift 16
+	EXPLIES  shift 17
+	IFF  shift 18
+	FORALL  shift 19
+	EXISTS  shift 20
+	OR  shift 21
+	NOT  shift 22
+	LBLPOS  shift 23
+	LBLNEG  shift 24
+	DISTINCT  shift 25
+	EQ  shift 26
+	NEQ  shift 27
+	LT  shift 28
+	LE  shift 29
+	GT  shift 30
+	GE  shift 31
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 33
+
+
+state 33
+	predicate : LPAR predicate . RPAR  (33)
+
+	RPAR  shift 62
+	.  error
+
+
+state 34
+	start : list0_decl EOF .  (1)
+
+	.  reduce 1
+
+
+state 35
+	list1_decl : decl list1_decl .  (5)
+
+	.  reduce 5
+
+
+state 36
+	term : IDENT .  (44)
+
+	.  reduce 44
+
+
+state 37
+	term : INTEGER .  (43)
+
+	.  reduce 43
+
+
+state 38
+	term : AT_TRUE .  (46)
+
+	.  reduce 46
+
+
+state 39
+	term : LPAR . term RPAR  (42)
+	term : LPAR . IDENT list1_term RPAR  (45)
+
+	IDENT  shift 63
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 64
+
+
+state 40
+	list1_term : term .  (47)
+	list1_term : term . list1_term  (48)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	RPAR  reduce 47
+
+	term  goto 40
+	list1_term  goto 65
+
+
+state 41
+	predicate : LPAR IDENT list1_term . RPAR  (27)
+
+	RPAR  shift 66
+	.  error
+
+
+state 42
+	decl : LPAR DEFPRED LPAR . list1_ident RPAR RPAR  (7)
+	decl : LPAR DEFPRED LPAR . list1_ident RPAR predicate RPAR  (8)
+
+	IDENT  shift 67
+	.  error
+
+	list1_ident  goto 68
+
+
+state 43
+	decl : LPAR BG_PUSH predicate . RPAR  (6)
+
+	RPAR  shift 69
+	.  error
+
+
+state 44
+	list1_predicate : predicate .  (10)
+	list1_predicate : predicate . list1_predicate  (11)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	RPAR  reduce 10
+
+	predicate  goto 44
+	list1_predicate  goto 70
+
+
+state 45
+	predicate : LPAR AND list1_predicate . RPAR  (14)
+
+	RPAR  shift 71
+	.  error
+
+
+state 46
+	predicate : LPAR IMPLIES predicate . predicate RPAR  (16)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 72
+
+
+state 47
+	predicate : LPAR EXPLIES predicate . predicate RPAR  (17)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 73
+
+
+state 48
+	predicate : LPAR IFF predicate . predicate RPAR  (18)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 74
+
+
+state 49
+	predicate : LPAR FORALL LPAR . list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR FORALL LPAR . list1_ident RPAR predicate RPAR  (30)
+
+	IDENT  shift 67
+	.  error
+
+	list1_ident  goto 75
+
+
+state 50
+	predicate : LPAR EXISTS LPAR . list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR EXISTS LPAR . list1_ident RPAR predicate RPAR  (32)
+
+	IDENT  shift 67
+	.  error
+
+	list1_ident  goto 76
+
+
+state 51
+	predicate : LPAR OR list1_predicate . RPAR  (15)
+
+	RPAR  shift 77
+	.  error
+
+
+state 52
+	predicate : LPAR NOT predicate . RPAR  (19)
+
+	RPAR  shift 78
+	.  error
+
+
+state 53
+	predicate : LPAR LBLPOS IDENT . predicate RPAR  (34)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 79
+
+
+state 54
+	predicate : LPAR LBLNEG IDENT . predicate RPAR  (35)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 80
+
+
+state 55
+	predicate : LPAR DISTINCT list1_term . RPAR  (26)
+
+	RPAR  shift 81
+	.  error
+
+
+state 56
+	predicate : LPAR EQ term . term RPAR  (20)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 82
+
+
+state 57
+	predicate : LPAR NEQ term . term RPAR  (21)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 83
+
+
+state 58
+	predicate : LPAR LT term . term RPAR  (22)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 84
+
+
+state 59
+	predicate : LPAR LE term . term RPAR  (23)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 85
+
+
+state 60
+	predicate : LPAR GT term . term RPAR  (24)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 86
+
+
+state 61
+	predicate : LPAR GE term . term RPAR  (25)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 87
+
+
+state 62
+	predicate : LPAR predicate RPAR .  (33)
+
+	.  reduce 33
+
+
+state 63
+	term : IDENT .  (44)
+	term : LPAR IDENT . list1_term RPAR  (45)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	RPAR  reduce 44
+
+	term  goto 40
+	list1_term  goto 88
+
+
+state 64
+	term : LPAR term . RPAR  (42)
+
+	RPAR  shift 89
+	.  error
+
+
+state 65
+	list1_term : term list1_term .  (48)
+
+	.  reduce 48
+
+
+state 66
+	predicate : LPAR IDENT list1_term RPAR .  (27)
+
+	.  reduce 27
+
+
+state 67
+	list1_ident : IDENT .  (49)
+	list1_ident : IDENT . list1_ident  (50)
+
+	IDENT  shift 67
+	RPAR  reduce 49
+
+	list1_ident  goto 90
+
+
+state 68
+	decl : LPAR DEFPRED LPAR list1_ident . RPAR RPAR  (7)
+	decl : LPAR DEFPRED LPAR list1_ident . RPAR predicate RPAR  (8)
+
+	RPAR  shift 91
+	.  error
+
+
+state 69
+	decl : LPAR BG_PUSH predicate RPAR .  (6)
+
+	.  reduce 6
+
+
+state 70
+	list1_predicate : predicate list1_predicate .  (11)
+
+	.  reduce 11
+
+
+state 71
+	predicate : LPAR AND list1_predicate RPAR .  (14)
+
+	.  reduce 14
+
+
+state 72
+	predicate : LPAR IMPLIES predicate predicate . RPAR  (16)
+
+	RPAR  shift 92
+	.  error
+
+
+state 73
+	predicate : LPAR EXPLIES predicate predicate . RPAR  (17)
+
+	RPAR  shift 93
+	.  error
+
+
+state 74
+	predicate : LPAR IFF predicate predicate . RPAR  (18)
+
+	RPAR  shift 94
+	.  error
+
+
+state 75
+	predicate : LPAR FORALL LPAR list1_ident . RPAR LPAR pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR FORALL LPAR list1_ident . RPAR predicate RPAR  (30)
+
+	RPAR  shift 95
+	.  error
+
+
+state 76
+	predicate : LPAR EXISTS LPAR list1_ident . RPAR LPAR pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR EXISTS LPAR list1_ident . RPAR predicate RPAR  (32)
+
+	RPAR  shift 96
+	.  error
+
+
+state 77
+	predicate : LPAR OR list1_predicate RPAR .  (15)
+
+	.  reduce 15
+
+
+state 78
+	predicate : LPAR NOT predicate RPAR .  (19)
+
+	.  reduce 19
+
+
+state 79
+	predicate : LPAR LBLPOS IDENT predicate . RPAR  (34)
+
+	RPAR  shift 97
+	.  error
+
+
+state 80
+	predicate : LPAR LBLNEG IDENT predicate . RPAR  (35)
+
+	RPAR  shift 98
+	.  error
+
+
+state 81
+	predicate : LPAR DISTINCT list1_term RPAR .  (26)
+
+	.  reduce 26
+
+
+state 82
+	predicate : LPAR EQ term term . RPAR  (20)
+
+	RPAR  shift 99
+	.  error
+
+
+state 83
+	predicate : LPAR NEQ term term . RPAR  (21)
+
+	RPAR  shift 100
+	.  error
+
+
+state 84
+	predicate : LPAR LT term term . RPAR  (22)
+
+	RPAR  shift 101
+	.  error
+
+
+state 85
+	predicate : LPAR LE term term . RPAR  (23)
+
+	RPAR  shift 102
+	.  error
+
+
+state 86
+	predicate : LPAR GT term term . RPAR  (24)
+
+	RPAR  shift 103
+	.  error
+
+
+state 87
+	predicate : LPAR GE term term . RPAR  (25)
+
+	RPAR  shift 104
+	.  error
+
+
+state 88
+	term : LPAR IDENT list1_term . RPAR  (45)
+
+	RPAR  shift 105
+	.  error
+
+
+state 89
+	term : LPAR term RPAR .  (42)
+
+	.  reduce 42
+
+
+state 90
+	list1_ident : IDENT list1_ident .  (50)
+
+	.  reduce 50
+
+
+state 91
+	decl : LPAR DEFPRED LPAR list1_ident RPAR . RPAR  (7)
+	decl : LPAR DEFPRED LPAR list1_ident RPAR . predicate RPAR  (8)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	RPAR  shift 106
+	.  error
+
+	predicate  goto 107
+
+
+state 92
+	predicate : LPAR IMPLIES predicate predicate RPAR .  (16)
+
+	.  reduce 16
+
+
+state 93
+	predicate : LPAR EXPLIES predicate predicate RPAR .  (17)
+
+	.  reduce 17
+
+
+state 94
+	predicate : LPAR IFF predicate predicate RPAR .  (18)
+
+	.  reduce 18
+
+
+state 95
+	predicate : LPAR FORALL LPAR list1_ident RPAR . LPAR pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR FORALL LPAR list1_ident RPAR . predicate RPAR  (30)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 108
+	.  error
+
+	predicate  goto 109
+
+
+state 96
+	predicate : LPAR EXISTS LPAR list1_ident RPAR . LPAR pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR EXISTS LPAR list1_ident RPAR . predicate RPAR  (32)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 110
+	.  error
+
+	predicate  goto 111
+
+
+state 97
+	predicate : LPAR LBLPOS IDENT predicate RPAR .  (34)
+
+	.  reduce 34
+
+
+state 98
+	predicate : LPAR LBLNEG IDENT predicate RPAR .  (35)
+
+	.  reduce 35
+
+
+state 99
+	predicate : LPAR EQ term term RPAR .  (20)
+
+	.  reduce 20
+
+
+state 100
+	predicate : LPAR NEQ term term RPAR .  (21)
+
+	.  reduce 21
+
+
+state 101
+	predicate : LPAR LT term term RPAR .  (22)
+
+	.  reduce 22
+
+
+state 102
+	predicate : LPAR LE term term RPAR .  (23)
+
+	.  reduce 23
+
+
+state 103
+	predicate : LPAR GT term term RPAR .  (24)
+
+	.  reduce 24
+
+
+state 104
+	predicate : LPAR GE term term RPAR .  (25)
+
+	.  reduce 25
+
+
+state 105
+	term : LPAR IDENT list1_term RPAR .  (45)
+
+	.  reduce 45
+
+
+state 106
+	decl : LPAR DEFPRED LPAR list1_ident RPAR RPAR .  (7)
+
+	.  reduce 7
+
+
+state 107
+	decl : LPAR DEFPRED LPAR list1_ident RPAR predicate . RPAR  (8)
+
+	RPAR  shift 112
+	.  error
+
+
+state 108
+	predicate : LPAR . AND list1_predicate RPAR  (14)
+	predicate : LPAR . OR list1_predicate RPAR  (15)
+	predicate : LPAR . IMPLIES predicate predicate RPAR  (16)
+	predicate : LPAR . EXPLIES predicate predicate RPAR  (17)
+	predicate : LPAR . IFF predicate predicate RPAR  (18)
+	predicate : LPAR . NOT predicate RPAR  (19)
+	predicate : LPAR . EQ term term RPAR  (20)
+	predicate : LPAR . NEQ term term RPAR  (21)
+	predicate : LPAR . LT term term RPAR  (22)
+	predicate : LPAR . LE term term RPAR  (23)
+	predicate : LPAR . GT term term RPAR  (24)
+	predicate : LPAR . GE term term RPAR  (25)
+	predicate : LPAR . DISTINCT list1_term RPAR  (26)
+	predicate : LPAR . IDENT list1_term RPAR  (27)
+	predicate : LPAR . FORALL LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR FORALL LPAR list1_ident RPAR LPAR . pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR . FORALL LPAR list1_ident RPAR predicate RPAR  (30)
+	predicate : LPAR . EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR . EXISTS LPAR list1_ident RPAR predicate RPAR  (32)
+	predicate : LPAR . predicate RPAR  (33)
+	predicate : LPAR . LBLPOS IDENT predicate RPAR  (34)
+	predicate : LPAR . LBLNEG IDENT predicate RPAR  (35)
+
+	IDENT  shift 12
+	TRUE  shift 4
+	FALSE  shift 5
+	AND  shift 15
+	IMPLIES  shift 16
+	EXPLIES  shift 17
+	IFF  shift 18
+	FORALL  shift 19
+	EXISTS  shift 20
+	PATS  shift 113
+	NOPATS  shift 114
+	OR  shift 21
+	NOT  shift 22
+	LBLPOS  shift 23
+	LBLNEG  shift 24
+	DISTINCT  shift 25
+	EQ  shift 26
+	NEQ  shift 27
+	LT  shift 28
+	LE  shift 29
+	GT  shift 30
+	GE  shift 31
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 33
+	pats  goto 115
+
+
+state 109
+	predicate : LPAR FORALL LPAR list1_ident RPAR predicate . RPAR  (30)
+
+	RPAR  shift 116
+	.  error
+
+
+state 110
+	predicate : LPAR . AND list1_predicate RPAR  (14)
+	predicate : LPAR . OR list1_predicate RPAR  (15)
+	predicate : LPAR . IMPLIES predicate predicate RPAR  (16)
+	predicate : LPAR . EXPLIES predicate predicate RPAR  (17)
+	predicate : LPAR . IFF predicate predicate RPAR  (18)
+	predicate : LPAR . NOT predicate RPAR  (19)
+	predicate : LPAR . EQ term term RPAR  (20)
+	predicate : LPAR . NEQ term term RPAR  (21)
+	predicate : LPAR . LT term term RPAR  (22)
+	predicate : LPAR . LE term term RPAR  (23)
+	predicate : LPAR . GT term term RPAR  (24)
+	predicate : LPAR . GE term term RPAR  (25)
+	predicate : LPAR . DISTINCT list1_term RPAR  (26)
+	predicate : LPAR . IDENT list1_term RPAR  (27)
+	predicate : LPAR . FORALL LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (29)
+	predicate : LPAR . FORALL LPAR list1_ident RPAR predicate RPAR  (30)
+	predicate : LPAR . EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR EXISTS LPAR list1_ident RPAR LPAR . pats list1_trigger RPAR predicate RPAR  (31)
+	predicate : LPAR . EXISTS LPAR list1_ident RPAR predicate RPAR  (32)
+	predicate : LPAR . predicate RPAR  (33)
+	predicate : LPAR . LBLPOS IDENT predicate RPAR  (34)
+	predicate : LPAR . LBLNEG IDENT predicate RPAR  (35)
+
+	IDENT  shift 12
+	TRUE  shift 4
+	FALSE  shift 5
+	AND  shift 15
+	IMPLIES  shift 16
+	EXPLIES  shift 17
+	IFF  shift 18
+	FORALL  shift 19
+	EXISTS  shift 20
+	PATS  shift 113
+	NOPATS  shift 114
+	OR  shift 21
+	NOT  shift 22
+	LBLPOS  shift 23
+	LBLNEG  shift 24
+	DISTINCT  shift 25
+	EQ  shift 26
+	NEQ  shift 27
+	LT  shift 28
+	LE  shift 29
+	GT  shift 30
+	GE  shift 31
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 33
+	pats  goto 117
+
+
+state 111
+	predicate : LPAR EXISTS LPAR list1_ident RPAR predicate . RPAR  (32)
+
+	RPAR  shift 118
+	.  error
+
+
+state 112
+	decl : LPAR DEFPRED LPAR list1_ident RPAR predicate RPAR .  (8)
+
+	.  reduce 8
+
+
+state 113
+	pats : PATS .  (36)
+
+	.  reduce 36
+
+
+state 114
+	pats : NOPATS .  (37)
+
+	.  reduce 37
+
+
+state 115
+	predicate : LPAR FORALL LPAR list1_ident RPAR LPAR pats . list1_trigger RPAR predicate RPAR  (29)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 119
+	.  error
+
+	term  goto 120
+	list1_trigger  goto 121
+	trigger  goto 122
+
+
+state 116
+	predicate : LPAR FORALL LPAR list1_ident RPAR predicate RPAR .  (30)
+
+	.  reduce 30
+
+
+state 117
+	predicate : LPAR EXISTS LPAR list1_ident RPAR LPAR pats . list1_trigger RPAR predicate RPAR  (31)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 119
+	.  error
+
+	term  goto 120
+	list1_trigger  goto 123
+	trigger  goto 122
+
+
+state 118
+	predicate : LPAR EXISTS LPAR list1_ident RPAR predicate RPAR .  (32)
+
+	.  reduce 32
+
+
+state 119
+	trigger : LPAR . MPAT list1_term RPAR  (40)
+	term : LPAR . term RPAR  (42)
+	term : LPAR . IDENT list1_term RPAR  (45)
+
+	IDENT  shift 63
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	MPAT  shift 124
+	LPAR  shift 39
+	.  error
+
+	term  goto 64
+
+
+state 120
+	trigger : term .  (41)
+
+	.  reduce 41
+
+
+state 121
+	predicate : LPAR FORALL LPAR list1_ident RPAR LPAR pats list1_trigger . RPAR predicate RPAR  (29)
+
+	RPAR  shift 125
+	.  error
+
+
+state 122
+	list1_trigger : trigger .  (38)
+	list1_trigger : trigger . list1_trigger  (39)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 119
+	RPAR  reduce 38
+
+	term  goto 120
+	list1_trigger  goto 126
+	trigger  goto 122
+
+
+state 123
+	predicate : LPAR EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger . RPAR predicate RPAR  (31)
+
+	RPAR  shift 127
+	.  error
+
+
+state 124
+	trigger : LPAR MPAT . list1_term RPAR  (40)
+
+	IDENT  shift 36
+	INTEGER  shift 37
+	AT_TRUE  shift 38
+	LPAR  shift 39
+	.  error
+
+	term  goto 40
+	list1_term  goto 128
+
+
+state 125
+	predicate : LPAR FORALL LPAR list1_ident RPAR LPAR pats list1_trigger RPAR . predicate RPAR  (29)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 129
+
+
+state 126
+	list1_trigger : trigger list1_trigger .  (39)
+
+	.  reduce 39
+
+
+state 127
+	predicate : LPAR EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger RPAR . predicate RPAR  (31)
+
+	IDENT  shift 3
+	TRUE  shift 4
+	FALSE  shift 5
+	LPAR  shift 32
+	.  error
+
+	predicate  goto 130
+
+
+state 128
+	trigger : LPAR MPAT list1_term . RPAR  (40)
+
+	RPAR  shift 131
+	.  error
+
+
+state 129
+	predicate : LPAR FORALL LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate . RPAR  (29)
+
+	RPAR  shift 132
+	.  error
+
+
+state 130
+	predicate : LPAR EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate . RPAR  (31)
+
+	RPAR  shift 133
+	.  error
+
+
+state 131
+	trigger : LPAR MPAT list1_term RPAR .  (40)
+
+	.  reduce 40
+
+
+state 132
+	predicate : LPAR FORALL LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR .  (29)
+
+	.  reduce 29
+
+
+state 133
+	predicate : LPAR EXISTS LPAR list1_ident RPAR LPAR pats list1_trigger RPAR predicate RPAR .  (31)
+
+	.  reduce 31
+
+
+33 terminals, 14 nonterminals
+52 grammar rules, 134 states

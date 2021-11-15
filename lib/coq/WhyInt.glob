@@ -1,0 +1,18 @@
+DIGEST ddfd08d6eed884120aac69259e40453e
+FWhyInt
+R648:653 Coq.ZArith.ZArith <> <> lib
+R671:680 Coq.ZArith.ZArith_dec <> <> lib
+R698:701 Coq.ZArith.Zdiv <> <> lib
+R720:725 Coq.ZArith.ZArith <> <> lib
+prf 759:766 <> Znotzero
+R779:779 Coq.Numbers.BinNums <> Z ind
+binder 777:777 <> x:1
+R782:782 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R791:795 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R803:803 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R784:787 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R783:783 WhyInt <> x:1 var
+R797:799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R796:796 WhyInt <> x:1 var
+R829:836 Coq.ZArith.BinInt Z eq_dec def
+R829:836 Coq.ZArith.BinInt Z eq_dec def

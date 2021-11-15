@@ -1,0 +1,201 @@
+DIGEST 9c5cd8c4190d479eb0b4c995bf980621
+FWhyArrays
+R1194:1199 WhyInt <> <> lib
+ax 1288:1296 <> raw_array
+R1303:1306 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+def 1324:1328 <> array
+binder 1331:1331 <> T:2
+R1341:1344 Coq.Init.Datatypes <> prod ind
+R1349:1357 WhyArrays <> raw_array defax
+R1359:1359 WhyArrays <> T:2 var
+R1346:1346 Coq.Numbers.BinNums <> Z ind
+def 1396:1407 <> array_length
+binder 1410:1410 <> T:3
+R1420:1424 WhyArrays <> array def
+R1426:1426 WhyArrays <> T:3 var
+binder 1418:1418 <> t:4
+R1431:1431 Coq.Numbers.BinNums <> Z ind
+R1450:1450 WhyArrays <> t:4 var
+binder 1441:1441 <> n:5
+R1455:1455 WhyArrays <> n:5 var
+ax 1523:1529 <> raw_new
+binder 1540:1540 <> T:6
+R1548:1551 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1547:1547 WhyArrays <> T:6 var
+R1552:1560 WhyArrays <> raw_array defax
+R1562:1562 WhyArrays <> T:6 var
+def 1577:1579 <> new
+binder 1582:1582 <> T:8
+R1592:1592 Coq.Numbers.BinNums <> Z ind
+binder 1590:1590 <> n:9
+R1598:1598 WhyArrays <> T:8 var
+binder 1596:1596 <> a:10
+R1603:1607 WhyArrays <> array def
+R1609:1609 WhyArrays <> T:8 var
+R1614:1614 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1616:1617 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1627:1627 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1615:1615 WhyArrays <> n:9 var
+R1618:1624 WhyArrays <> raw_new defax
+R1626:1626 WhyArrays <> a:10 var
+ax 1641:1650 <> raw_access
+binder 1661:1661 <> T:11
+R1679:1682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1668:1676 WhyArrays <> raw_array defax
+R1678:1678 WhyArrays <> T:11 var
+R1684:1687 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1683:1683 Coq.Numbers.BinNums <> Z ind
+R1688:1688 WhyArrays <> T:11 var
+def 1703:1708 <> access
+binder 1711:1711 <> T:13
+R1721:1725 WhyArrays <> array def
+R1727:1727 WhyArrays <> T:13 var
+binder 1719:1719 <> t:14
+R1733:1733 Coq.Numbers.BinNums <> Z ind
+binder 1731:1731 <> i:15
+R1738:1738 WhyArrays <> T:13 var
+R1759:1759 WhyArrays <> t:14 var
+binder 1753:1753 <> r:16
+R1764:1773 WhyArrays <> raw_access defax
+R1777:1777 WhyArrays <> i:15 var
+R1775:1775 WhyArrays <> r:16 var
+ax 1793:1802 <> raw_update
+binder 1813:1813 <> T:17
+R1831:1834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1820:1828 WhyArrays <> raw_array defax
+R1830:1830 WhyArrays <> T:17 var
+R1836:1839 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1835:1835 Coq.Numbers.BinNums <> Z ind
+R1841:1844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1840:1840 WhyArrays <> T:17 var
+R1845:1853 WhyArrays <> raw_array defax
+R1855:1855 WhyArrays <> T:17 var
+def 1870:1875 <> update
+binder 1878:1878 <> T:19
+R1888:1892 WhyArrays <> array def
+R1894:1894 WhyArrays <> T:19 var
+binder 1886:1886 <> t:20
+R1900:1900 Coq.Numbers.BinNums <> Z ind
+binder 1898:1898 <> i:21
+R1906:1906 WhyArrays <> T:19 var
+binder 1904:1904 <> v:22
+R1911:1915 WhyArrays <> array def
+R1917:1917 WhyArrays <> T:19 var
+R1924:1924 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1939:1940 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1976:1976 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1925:1936 WhyArrays <> array_length def
+R1938:1938 WhyArrays <> t:20 var
+R1955:1955 WhyArrays <> t:20 var
+binder 1949:1949 <> r:23
+R1960:1969 WhyArrays <> raw_update defax
+R1975:1975 WhyArrays <> v:22 var
+R1973:1973 WhyArrays <> i:21 var
+R1971:1971 WhyArrays <> r:23 var
+prf 2024:2042 <> array_length_update
+binder 2055:2055 <> T:24
+R2065:2069 WhyArrays <> array def
+R2071:2071 WhyArrays <> T:24 var
+binder 2063:2063 <> t:25
+R2077:2077 Coq.Numbers.BinNums <> Z ind
+binder 2075:2075 <> i:26
+R2083:2083 WhyArrays <> T:24 var
+binder 2081:2081 <> v:27
+R2117:2119 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2090:2101 WhyArrays <> array_length def
+R2104:2109 WhyArrays <> update def
+R2115:2115 WhyArrays <> v:27 var
+R2113:2113 WhyArrays <> i:26 var
+R2111:2111 WhyArrays <> t:25 var
+R2120:2131 WhyArrays <> array_length def
+R2133:2133 WhyArrays <> t:25 var
+ax 2181:2187 <> new_def
+binder 2203:2203 <> T:28
+R2213:2213 Coq.Numbers.BinNums <> Z ind
+binder 2211:2211 <> n:29
+R2220:2220 WhyArrays <> T:28 var
+binder 2217:2218 <> v0:30
+R2226:2226 Coq.Numbers.BinNums <> Z ind
+binder 2224:2224 <> i:31
+R2250:2253 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2238:2241 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<'_x not
+R2243:2245 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<'_x not
+R2242:2242 WhyArrays <> i:31 var
+R2242:2242 WhyArrays <> i:31 var
+R2246:2246 WhyArrays <> n:29 var
+R2273:2275 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2254:2259 WhyArrays <> access def
+R2272:2272 WhyArrays <> i:31 var
+R2262:2264 WhyArrays <> new def
+R2268:2269 WhyArrays <> v0:30 var
+R2266:2266 WhyArrays <> n:29 var
+R2276:2277 WhyArrays <> v0:30 var
+ax 2289:2300 <> update_def_1
+binder 2316:2316 <> T:33
+R2326:2330 WhyArrays <> array def
+R2332:2332 WhyArrays <> T:33 var
+binder 2324:2324 <> t:34
+R2338:2338 WhyArrays <> T:33 var
+binder 2336:2336 <> v:35
+R2344:2344 Coq.Numbers.BinNums <> Z ind
+binder 2342:2342 <> i:36
+R2381:2384 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2356:2359 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<'_x not
+R2361:2363 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<'_x not
+R2360:2360 WhyArrays <> i:36 var
+R2360:2360 WhyArrays <> i:36 var
+R2364:2375 WhyArrays <> array_length def
+R2377:2377 WhyArrays <> t:34 var
+R2408:2410 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2385:2390 WhyArrays <> access def
+R2407:2407 WhyArrays <> i:36 var
+R2393:2398 WhyArrays <> update def
+R2404:2404 WhyArrays <> v:35 var
+R2402:2402 WhyArrays <> i:36 var
+R2400:2400 WhyArrays <> t:34 var
+R2411:2411 WhyArrays <> v:35 var
+ax 2423:2434 <> update_def_2
+binder 2450:2450 <> T:38
+R2460:2464 WhyArrays <> array def
+R2466:2466 WhyArrays <> T:38 var
+binder 2458:2458 <> t:39
+R2472:2472 WhyArrays <> T:38 var
+binder 2470:2470 <> v:40
+R2480:2480 Coq.Numbers.BinNums <> Z ind
+binder 2476:2476 <> i:41
+binder 2478:2478 <> j:42
+R2517:2526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2492:2495 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<'_x not
+R2497:2499 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<'_x not
+R2496:2496 WhyArrays <> i:41 var
+R2496:2496 WhyArrays <> i:41 var
+R2500:2511 WhyArrays <> array_length def
+R2513:2513 WhyArrays <> t:39 var
+R2554:2563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2529:2532 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<'_x not
+R2534:2536 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x_'<'_x not
+R2533:2533 WhyArrays <> j:42 var
+R2533:2533 WhyArrays <> j:42 var
+R2537:2548 WhyArrays <> array_length def
+R2550:2550 WhyArrays <> t:39 var
+R2570:2573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2565:2568 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2564:2564 WhyArrays <> i:41 var
+R2569:2569 WhyArrays <> j:42 var
+R2597:2599 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2574:2579 WhyArrays <> access def
+R2596:2596 WhyArrays <> j:42 var
+R2582:2587 WhyArrays <> update def
+R2593:2593 WhyArrays <> v:40 var
+R2591:2591 WhyArrays <> i:41 var
+R2589:2589 WhyArrays <> t:39 var
+R2600:2605 WhyArrays <> access def
+R2609:2609 WhyArrays <> j:42 var
+R2607:2607 WhyArrays <> t:39 var
+R2759:2770 WhyArrays <> update_def_1 prfax
+R2788:2806 WhyArrays <> array_length_update thm
+R2844:2851 Coq.ZArith.BinInt Z eq_dec def
+R2892:2903 WhyArrays <> update_def_1 prfax
+R2938:2949 WhyArrays <> update_def_2 prfax
+R3019:3030 WhyArrays <> update_def_1 prfax
+R3084:3095 WhyArrays <> update_def_2 prfax

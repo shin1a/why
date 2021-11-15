@@ -1,0 +1,5 @@
+DIGEST a47b1fd87953c5238fc9d58e674cfacb
+Fwords
+R89:92 Coq.Lists.List <> <> lib
+R110:115 Coq.ZArith.ZArith <> <> lib
+R133:142 Coq.setoid_ring.ZArithRing <> <> lib

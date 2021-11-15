@@ -1,0 +1,496 @@
+   0  $accept : %entry% $end
+
+   1  all : any all
+   2      | EOF
+
+   3  any : PROJECT
+   4      | PROVER
+   5      | TEST
+   6      | RESULT
+   7      | TIME
+   8      | PRE
+   9      | POST
+  10      | LOOPINV
+  11      | BWD_LOOPINV
+
+  12  log : project_record_list
+  13      | subrecord_list
+  14      | EOF
+
+  15  project_record_list : project_record project_record_list
+  16                      | project_record
+
+  17  project_record : PROJECT annot_list subrecord_list
+  18                 | PROJECT annot_list
+
+  19  annot_list : annot annot_list
+  20             |
+
+  21  annot : PRE count
+  22        | POST count
+  23        | LOOPINV count
+  24        | BWD_LOOPINV count
+
+  25  count : RELATION count
+  26        |
+
+  27  subrecord_list : subrecord subrecord_list
+  28                 | subrecord
+
+  29  subrecord : PROVER tests TIME
+  30            | PROVER TEST RESULT
+  31            | PROVER TEST
+  32            | PROVER
+
+  33  tests : TEST RESULT tests
+  34        |
+
+  35  %entry% : '\002' all
+  36          | '\001' log
+
+state 0
+	$accept : . %entry% $end  (0)
+
+	'\002'  shift 1
+	'\001'  shift 2
+	.  error
+
+	%entry%  goto 3
+
+
+state 1
+	%entry% : '\002' . all  (35)
+
+	PROJECT  shift 4
+	PROVER  shift 5
+	TEST  shift 6
+	RESULT  shift 7
+	TIME  shift 8
+	PRE  shift 9
+	POST  shift 10
+	LOOPINV  shift 11
+	BWD_LOOPINV  shift 12
+	EOF  shift 13
+	.  error
+
+	all  goto 14
+	any  goto 15
+
+
+state 2
+	%entry% : '\001' . log  (36)
+
+	PROJECT  shift 16
+	PROVER  shift 17
+	EOF  shift 18
+	.  error
+
+	log  goto 19
+	project_record_list  goto 20
+	subrecord_list  goto 21
+	project_record  goto 22
+	subrecord  goto 23
+
+
+state 3
+	$accept : %entry% . $end  (0)
+
+	$end  accept
+
+
+state 4
+	any : PROJECT .  (3)
+
+	.  reduce 3
+
+
+state 5
+	any : PROVER .  (4)
+
+	.  reduce 4
+
+
+state 6
+	any : TEST .  (5)
+
+	.  reduce 5
+
+
+state 7
+	any : RESULT .  (6)
+
+	.  reduce 6
+
+
+state 8
+	any : TIME .  (7)
+
+	.  reduce 7
+
+
+state 9
+	any : PRE .  (8)
+
+	.  reduce 8
+
+
+state 10
+	any : POST .  (9)
+
+	.  reduce 9
+
+
+state 11
+	any : LOOPINV .  (10)
+
+	.  reduce 10
+
+
+state 12
+	any : BWD_LOOPINV .  (11)
+
+	.  reduce 11
+
+
+state 13
+	all : EOF .  (2)
+
+	.  reduce 2
+
+
+state 14
+	%entry% : '\002' all .  (35)
+
+	.  reduce 35
+
+
+state 15
+	all : any . all  (1)
+
+	PROJECT  shift 4
+	PROVER  shift 5
+	TEST  shift 6
+	RESULT  shift 7
+	TIME  shift 8
+	PRE  shift 9
+	POST  shift 10
+	LOOPINV  shift 11
+	BWD_LOOPINV  shift 12
+	EOF  shift 13
+	.  error
+
+	all  goto 24
+	any  goto 15
+
+
+state 16
+	project_record : PROJECT . annot_list subrecord_list  (17)
+	project_record : PROJECT . annot_list  (18)
+	annot_list : .  (20)
+
+	PRE  shift 25
+	POST  shift 26
+	LOOPINV  shift 27
+	BWD_LOOPINV  shift 28
+	$end  reduce 20
+	PROJECT  reduce 20
+	PROVER  reduce 20
+
+	annot_list  goto 29
+	annot  goto 30
+
+
+state 17
+	subrecord : PROVER . tests TIME  (29)
+	subrecord : PROVER . TEST RESULT  (30)
+	subrecord : PROVER . TEST  (31)
+	subrecord : PROVER .  (32)
+	tests : .  (34)
+
+	TEST  shift 31
+	$end  reduce 32
+	PROJECT  reduce 32
+	PROVER  reduce 32
+	TIME  reduce 34
+
+	tests  goto 32
+
+
+state 18
+	log : EOF .  (14)
+
+	.  reduce 14
+
+
+state 19
+	%entry% : '\001' log .  (36)
+
+	.  reduce 36
+
+
+state 20
+	log : project_record_list .  (12)
+
+	.  reduce 12
+
+
+state 21
+	log : subrecord_list .  (13)
+
+	.  reduce 13
+
+
+state 22
+	project_record_list : project_record . project_record_list  (15)
+	project_record_list : project_record .  (16)
+
+	PROJECT  shift 16
+	$end  reduce 16
+
+	project_record_list  goto 33
+	project_record  goto 22
+
+
+state 23
+	subrecord_list : subrecord . subrecord_list  (27)
+	subrecord_list : subrecord .  (28)
+
+	PROVER  shift 17
+	$end  reduce 28
+	PROJECT  reduce 28
+
+	subrecord_list  goto 34
+	subrecord  goto 23
+
+
+state 24
+	all : any all .  (1)
+
+	.  reduce 1
+
+
+state 25
+	annot : PRE . count  (21)
+	count : .  (26)
+
+	RELATION  shift 35
+	$end  reduce 26
+	PROJECT  reduce 26
+	PROVER  reduce 26
+	PRE  reduce 26
+	POST  reduce 26
+	LOOPINV  reduce 26
+	BWD_LOOPINV  reduce 26
+
+	count  goto 36
+
+
+state 26
+	annot : POST . count  (22)
+	count : .  (26)
+
+	RELATION  shift 35
+	$end  reduce 26
+	PROJECT  reduce 26
+	PROVER  reduce 26
+	PRE  reduce 26
+	POST  reduce 26
+	LOOPINV  reduce 26
+	BWD_LOOPINV  reduce 26
+
+	count  goto 37
+
+
+state 27
+	annot : LOOPINV . count  (23)
+	count : .  (26)
+
+	RELATION  shift 35
+	$end  reduce 26
+	PROJECT  reduce 26
+	PROVER  reduce 26
+	PRE  reduce 26
+	POST  reduce 26
+	LOOPINV  reduce 26
+	BWD_LOOPINV  reduce 26
+
+	count  goto 38
+
+
+state 28
+	annot : BWD_LOOPINV . count  (24)
+	count : .  (26)
+
+	RELATION  shift 35
+	$end  reduce 26
+	PROJECT  reduce 26
+	PROVER  reduce 26
+	PRE  reduce 26
+	POST  reduce 26
+	LOOPINV  reduce 26
+	BWD_LOOPINV  reduce 26
+
+	count  goto 39
+
+
+state 29
+	project_record : PROJECT annot_list . subrecord_list  (17)
+	project_record : PROJECT annot_list .  (18)
+
+	PROVER  shift 17
+	$end  reduce 18
+	PROJECT  reduce 18
+
+	subrecord_list  goto 40
+	subrecord  goto 23
+
+
+state 30
+	annot_list : annot . annot_list  (19)
+	annot_list : .  (20)
+
+	PRE  shift 25
+	POST  shift 26
+	LOOPINV  shift 27
+	BWD_LOOPINV  shift 28
+	$end  reduce 20
+	PROJECT  reduce 20
+	PROVER  reduce 20
+
+	annot_list  goto 41
+	annot  goto 30
+
+
+state 31
+	subrecord : PROVER TEST . RESULT  (30)
+	subrecord : PROVER TEST .  (31)
+	tests : TEST . RESULT tests  (33)
+
+	RESULT  shift 42
+	$end  reduce 31
+	PROJECT  reduce 31
+	PROVER  reduce 31
+
+
+state 32
+	subrecord : PROVER tests . TIME  (29)
+
+	TIME  shift 43
+	.  error
+
+
+state 33
+	project_record_list : project_record project_record_list .  (15)
+
+	.  reduce 15
+
+
+state 34
+	subrecord_list : subrecord subrecord_list .  (27)
+
+	.  reduce 27
+
+
+state 35
+	count : RELATION . count  (25)
+	count : .  (26)
+
+	RELATION  shift 35
+	$end  reduce 26
+	PROJECT  reduce 26
+	PROVER  reduce 26
+	PRE  reduce 26
+	POST  reduce 26
+	LOOPINV  reduce 26
+	BWD_LOOPINV  reduce 26
+
+	count  goto 44
+
+
+state 36
+	annot : PRE count .  (21)
+
+	.  reduce 21
+
+
+state 37
+	annot : POST count .  (22)
+
+	.  reduce 22
+
+
+state 38
+	annot : LOOPINV count .  (23)
+
+	.  reduce 23
+
+
+state 39
+	annot : BWD_LOOPINV count .  (24)
+
+	.  reduce 24
+
+
+state 40
+	project_record : PROJECT annot_list subrecord_list .  (17)
+
+	.  reduce 17
+
+
+state 41
+	annot_list : annot annot_list .  (19)
+
+	.  reduce 19
+
+
+state 42
+	subrecord : PROVER TEST RESULT .  (30)
+	tests : TEST RESULT . tests  (33)
+	tests : .  (34)
+
+	TEST  shift 45
+	$end  reduce 30
+	PROJECT  reduce 30
+	PROVER  reduce 30
+	TIME  reduce 34
+
+	tests  goto 46
+
+
+state 43
+	subrecord : PROVER tests TIME .  (29)
+
+	.  reduce 29
+
+
+state 44
+	count : RELATION count .  (25)
+
+	.  reduce 25
+
+
+state 45
+	tests : TEST . RESULT tests  (33)
+
+	RESULT  shift 47
+	.  error
+
+
+state 46
+	tests : TEST RESULT tests .  (33)
+
+	.  reduce 33
+
+
+state 47
+	tests : TEST RESULT . tests  (33)
+	tests : .  (34)
+
+	TEST  shift 45
+	TIME  reduce 34
+
+	tests  goto 46
+
+
+15 terminals, 13 nonterminals
+37 grammar rules, 48 states
